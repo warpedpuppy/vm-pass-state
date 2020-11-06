@@ -1,25 +1,43 @@
-import logo from './logo.svg';
+import React, { Component } from 'react'
 import './App.css';
+import { Route, Switch, Link } from 'react-router-dom';
+import Test from './components/Test';
+import Home from './components/Home';
+import axios from 'axios';
+class App extends Component {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  state = {
+    user: null
+  }
+  componentDidMount () {
+    axios.post('https://flix-world.herokuapp.com/login', {
+      Username: "Sravya",
+      Password: "jaanu28leo"
+    })
+    .then(response => {
+      const data = response.data;
+      this.setState({user: response.data.user})
+    })
+    .catch(e => {
+      console.log('no such user');
+    });
+
+  }
+  render () {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Link to="/">Home</Link>
+          <Link to="/test">Test</Link>
+        </header>
+        <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/test" render={ () => <Test {...this.state} /> } />
+        </Switch>
+      </div>
+    );
+  }
+  
 }
 
 export default App;
