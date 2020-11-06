@@ -10,9 +10,9 @@ class App extends Component {
     user: null
   }
   componentDidMount () {
-    axios.post('https://flix-world.herokuapp.com/login', {
-      Username: "Sravya",
-      Password: "jaanu28leo"
+    axios.post('XXXXXXX', {
+      Username: "XXXX",
+      Password: "XXXXX"
     })
     .then(response => {
       const data = response.data;
